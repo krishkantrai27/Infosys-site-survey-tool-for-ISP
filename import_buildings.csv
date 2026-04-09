@@ -1,8 +1,0 @@
-property_id,name,code,footprint_type,footprint_wkt,floors_count
-1,Tower A - Residential,TOWER-A,POLYGON,"POLYGON((0 0, 65 0, 65 30, 0 30, 0 0))",3
-1,Tower B - Commercial,TOWER-B,POLYGON,"POLYGON((70 0, 130 0, 130 30, 70 30, 70 0))",5
-1,Amenity Block,AMENITY,POLYGON,"POLYGON((0 35, 40 35, 40 60, 0 60, 0 35))",2
-1,Parking Structure,PARKING,POLYGON,"POLYGON((45 35, 130 35, 130 60, 45 60, 45 35))",1
-2,Office Block North,OBN,POLYGON,"POLYGON((0 0, 80 0, 80 40, 0 40, 0 0))",8
-2,Office Block South,OBS,POLYGON,"POLYGON((0 45, 80 45, 80 85, 0 85, 0 45))",8
-2,Data Centre,DC-01,POLYGON,"POLYGON((85 0, 120 0, 120 85, 85 85, 85 0))",2
