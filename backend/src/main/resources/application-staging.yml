@@ -1,0 +1,32 @@
+spring:
+  application:
+    name: site-survey-tool
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://sitesurvey-mysql:3306/site?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&autoReconnect=true}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:staging_root123}
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 300000
+      max-lifetime: 1500000
+      minimum-idle: 2
+      maximum-pool-size: 20
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+app:
+  jwt:
+    secret: ${JWT_SECRET:c3RhZ2luZ19qY3Rfc2VjcmV0X2tleV8yMDI1X3Zlcnlfc2VjdXJlX2luZGVlZA==}
+    expiration-ms: 900000
+    refresh-expiration-ms: 604800000
+file:
+  upload-dir: ./uploads
+storage:
+  provider: minio
+  minio:
+    url: ${MINIO_URL:http://sitesurvey-minio:9000}
+    access-key: ${MINIO_ACCESS_KEY:staging_admin}
+    secret-key: ${MINIO_SECRET_KEY:staging_password}
+    bucket: ${MINIO_BUCKET:sitesurvey-assets}

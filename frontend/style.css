@@ -1,0 +1,99 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#667eea,#764ba2);
+}
+
+.box{
+    background:white;
+    width:380px;
+    padding:40px;
+    border-radius:12px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.2);
+    text-align:center;
+}
+
+.box h2{
+    margin-bottom:25px;
+}
+
+input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:8px;
+    border:1px solid #ddd;
+}
+
+button{
+    width:100%;
+    padding:12px;
+    margin-top:15px;
+    border:none;
+    border-radius:8px;
+    background:#667eea;
+    color:white;
+    font-size:15px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#5563c1;
+}
+
+a{
+    text-decoration:none;
+    color:#667eea;
+}
+
+p{
+    margin-top:15px;
+}
+/* DASHBOARD BUTTON STYLE */
+
+.dashboard-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.dashboard-title {
+    font-size: 28px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.dashboard-btn {
+    display: block;
+    width: 250px;
+    margin: 15px auto;
+    padding: 12px;
+    background: #2a5298;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: 0.3s ease;
+}
+
+.dashboard-btn:hover {
+    background: #1e3c72;
+    transform: scale(1.05);
+}
+
+.logout-btn {
+    background: #c0392b;
+}
+
+.logout-btn:hover {
+    background: #922b21;
+}

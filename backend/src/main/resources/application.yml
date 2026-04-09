@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: site-survey-tool
+
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3306/site?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true&autoReconnect=true}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${SPRING_DATASOURCE_USERNAME:root}
+    password: ${SPRING_DATASOURCE_PASSWORD:root123}
+    hikari:
+      connection-timeout: 30000
+      idle-timeout: 300000
+      max-lifetime: 1500000
+      minimum-idle: 2
+      maximum-pool-size: 10
+      keepalive-time: 300000
+      connection-test-query: SELECT 1
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+app:
+  jwt:
+    secret: bXlTZWNyZXRLZXkyMDI1U2l0ZVN1cnZleVRvb2xBcHBsaWNhdGlvbkp3dFNlY3JldA==
+    expiration-ms: 900000
+    refresh-expiration-ms: 604800000
+
+file:
+  upload-dir: ./uploads
+
+storage:
+  provider: local   # local | minio
