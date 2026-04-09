@@ -1,0 +1,16 @@
+property_id,from_space_id,to_space_id,medium,length_m,slack_loops,splice_points,notes
+1,1,2,FIBER,15.50,2,0,MDF to IDF ground floor - OM4 multimode
+1,1,13,FIBER,22.00,2,1,MDF to IDF second floor - OM4 multimode with splice at riser
+1,1,18,FIBER,35.00,2,2,MDF to MDF room third floor - OS2 singlemode backbone
+1,2,3,COPPER,8.00,1,0,IDF to lobby AP - Cat6A
+1,2,7,COPPER,12.50,1,0,IDF ground floor to gym AP - Cat6A
+1,2,4,COPPER,20.00,1,0,IDF to Apt 101 ONT drop - Cat6
+1,2,5,COPPER,22.00,1,0,IDF to Apt 102 ONT drop - Cat6
+1,2,6,COPPER,24.00,1,0,IDF to Apt 103 ONT drop - Cat6
+1,13,9,COPPER,18.00,1,0,Second floor IDF to Apt 201 - Cat6
+1,13,10,COPPER,20.00,1,0,Second floor IDF to Apt 202 - Cat6
+1,13,11,COPPER,22.00,1,0,Second floor IDF to Apt 203 - Cat6
+1,13,12,COPPER,24.00,1,0,Second floor IDF to Apt 204 - Cat6
+1,18,15,COPPER,25.00,1,0,MDF room to Apt 301 - Cat6A
+1,18,16,COPPER,28.00,1,0,MDF room to Apt 302 - Cat6A
+1,18,17,COPPER,10.00,1,0,MDF room to terrace outdoor AP conduit - Cat6A UV rated

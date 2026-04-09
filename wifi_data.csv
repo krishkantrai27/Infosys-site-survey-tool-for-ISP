@@ -1,0 +1,11 @@
+Latitude,Longitude,Signal,MAC,SSID
+28.45,77.58,-45,AA:BB:CC:,Office_WiFi_1
+28.4501,77.5801,-52,AA:BB:CC:,Office_WiFi_1
+28.4502,77.5802,-60,AA:BB:CC:,Guest_Network
+28.4503,77.5803,-70,AA:BB:CC:,Office_WiFi_1
+28.4504,77.5804,-35,AA:BB:CC:,Guest_Network
+28.4505,77.5805,-80,AA:BB:CC:,IoT_Device_Net
+28.4506,77.5806,-42,AA:BB:CC:,Office_WiFi_1
+28.4507,77.5807,-55,AA:BB:CC:,Guest_Network
+28.4508,77.5808,-90,AA:BB:CC:,IoT_Device_Net
+28.45,77.581,-48,AA:BB:CC:,Office_WiFi_1
