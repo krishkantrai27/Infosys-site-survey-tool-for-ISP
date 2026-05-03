@@ -270,7 +270,7 @@ export default function PropertyDetail() {
                 </div>
             ) : buildings.map(b => (
                 <div key={b.id} className="glass-card" style={{ marginBottom: 12, overflow: 'hidden' }}>
-                    <div style={{ padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', background: expanded[b.id] ? '#F8FAFC' : '' }} onClick={() => toggleBuilding(b.id)}>
+                    <div style={{ padding: '16px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', cursor: 'pointer', background: expanded[b.id] ? 'var(--color-bg)' : '' }} onClick={() => toggleBuilding(b.id)}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
                             <Building size={18} color="var(--color-primary)" />
                             <span style={{ fontWeight: 600 }}>{b.name}</span>
@@ -299,7 +299,7 @@ export default function PropertyDetail() {
                                             {f.planFileId ? (
                                                 <span className="badge badge-success" style={{ fontSize: 10 }}>📎 Plan uploaded</span>
                                             ) : (
-                                                <span style={{ fontSize: 10, color: 'var(--color-text-muted)', background: '#F1F5F9', padding: '2px 6px', borderRadius: 4 }}>No plan</span>
+                                                <span style={{ fontSize: 10, color: 'var(--color-text-muted)', background: 'var(--color-bg)', padding: '2px 6px', borderRadius: 4 }}>No plan</span>
                                             )}
                                         </div>
                                         <div style={{ display: 'flex', gap: 6 }} onClick={e => e.stopPropagation()}>
@@ -319,7 +319,7 @@ export default function PropertyDetail() {
 
                                     {/* Floor Plan Display — visible to ALL roles */}
                                     {f.planFileId && (
-                                        <div style={{ padding: '10px 16px 10px 42px', background: '#FEFCE8', borderTop: '1px dashed #E5E7EB', display: 'flex', alignItems: 'center', gap: 12 }}>
+                                        <div style={{ padding: '10px 16px 10px 42px', background: 'var(--color-surface)', borderTop: '1px dashed var(--color-border)', display: 'flex', alignItems: 'center', gap: 12 }}>
                                             {f.planFileType?.startsWith('image/') ? (
                                                 <Image size={18} color="#059669" />
                                             ) : (

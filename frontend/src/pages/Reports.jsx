@@ -139,7 +139,7 @@ export default function Reports() {
             </div>
 
             {error && (
-                <div style={{ padding: '12px 16px', background: '#FEF2F2', color: '#DC2626', borderRadius: 8, marginBottom: 24, fontSize: 14 }}>
+                <div style={{ padding: '12px 16px', background: 'rgba(239, 68, 68, 0.1)', color: 'var(--color-danger)', border: '1px solid rgba(239, 68, 68, 0.2)', borderRadius: 8, marginBottom: 24, fontSize: 14 }}>
                     {error}
                 </div>
             )}
@@ -254,7 +254,7 @@ export default function Reports() {
                                                     {isAdmin() && (
                                                         <button 
                                                             className="btn" 
-                                                            style={{ padding: '6px 10px', background: '#FEF2F2', color: '#DC2626' }}
+                                                            style={{ padding: '6px 10px', background: 'var(--color-surface)', border: '1px solid var(--color-border)', color: 'var(--color-danger)' }}
                                                             onClick={() => handleDelete(report.id)}
                                                             title="Delete"
                                                         >

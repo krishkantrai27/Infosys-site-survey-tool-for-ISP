@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import { Toaster } from 'react-hot-toast'
+import { useTheme } from './context/ThemeContext'
 import Organizations from './pages/Organizations'
 import UserManagement from './pages/UserManagement'
 import Profile from './pages/Profile'
@@ -18,9 +19,22 @@ import Reports from './pages/Reports'
 import ErrorBoundary from './components/ErrorBoundary'
 
 export default function App() {
+    const { theme } = useTheme()
+    const isDark = theme === 'dark'
+
     return (
         <ErrorBoundary>
-            <Toaster position="top-right" />
+            <Toaster position="top-right" toastOptions={{
+                style: {
+                    borderRadius: '12px',
+                    background: 'var(--color-surface)',
+                    color: 'var(--color-text)',
+                    fontSize: '14px',
+                    border: '1px solid var(--color-border)'
+                },
+                success: { iconTheme: { primary: 'var(--color-success)', secondary: 'var(--color-surface)' } },
+                error: { iconTheme: { primary: 'var(--color-danger)', secondary: 'var(--color-surface)' } }
+            }} />
             <Routes>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />

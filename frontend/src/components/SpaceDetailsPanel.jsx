@@ -99,7 +99,7 @@ export default function SpaceDetailsPanel({ space, onClose, onSpaceUpdated }) {
             </div>
 
             {/* Tabs */}
-            <div style={{ display: 'flex', borderBottom: '1px solid var(--color-border)', background: '#F8FAFC' }}>
+            <div className="surface-alt" style={{ display: 'flex', borderBottom: '1px solid var(--color-border)', padding: '0 8px' }}>
                 {[
                     { id: 'info', icon: Info, label: 'Info' },
                     { id: 'equipment', icon: Server, label: `Equipment (${equipment.length})` },
@@ -165,7 +165,7 @@ export default function SpaceDetailsPanel({ space, onClose, onSpaceUpdated }) {
                                 </div>
 
                                 {showEquipForm && (
-                                    <div className="glass-card" style={{ padding: 16, background: '#F8FAFC', border: '1px solid #E2E8F0' }}>
+                                    <div className="glass-card" style={{ padding: 16, background: 'var(--color-bg)', border: '1px solid var(--color-border)' }}>
                                         <div style={{ marginBottom: 12 }}>
                                             <label style={{ fontSize: 12, fontWeight: 600 }}>Type</label>
                                             <select className="input-field" value={equipForm.type} onChange={e => setEquipForm({...equipForm, type: e.target.value})} style={{ padding: '6px', fontSize: 13 }}>
@@ -237,7 +237,7 @@ export default function SpaceDetailsPanel({ space, onClose, onSpaceUpdated }) {
                                 ) : (
                                     <>
                                         {/* Available templates for SPACE */}
-                                        {isEngineer() && templates.filter(t => t.scope === 'SPACE').length > 0 && (
+                                        {(isAdmin() || isEngineer()) && templates.filter(t => t.scope === 'SPACE').length > 0 && (
                                             <div style={{ marginBottom: 16 }}>
                                                 <h5 style={{ fontSize: 13, fontWeight: 600, color: 'var(--color-text-muted)', marginBottom: 8 }}>Available Checklists</h5>
                                                 <div style={{ display: 'grid', gap: 8 }}>

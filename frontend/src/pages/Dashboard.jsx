@@ -51,11 +51,11 @@ export default function Dashboard() {
     }), { properties: 0, spaces: 0, equipment: 0, cables: 0, rfscans: 0 })
 
     const cards = [
-        { icon: MapPin, label: 'Properties', value: stats.properties, color: '#4F46E5', bg: '#EEF2FF', link: '/properties' },
-        { icon: Building2, label: 'Total Spaces', value: stats.spaces, color: '#059669', bg: '#ECFDF5', link: '/properties' },
-        { icon: Cpu, label: 'Equipment', value: stats.equipment, color: '#D97706', bg: '#FFFBEB', link: '/equipment' },
-        { icon: Cable, label: 'Cable Paths', value: stats.cables, color: '#7C3AED', bg: '#F5F3FF', link: '/cable-paths' },
-        { icon: Radio, label: 'RF Scans', value: stats.rfscans, color: '#DC2626', bg: '#FEF2F2', link: '/properties' }
+        { icon: MapPin, label: 'Properties', value: stats.properties, color: '#4F46E5', bg: 'rgba(79, 70, 229, 0.1)', link: '/properties' },
+        { icon: Building2, label: 'Total Spaces', value: stats.spaces, color: '#059669', bg: 'rgba(5, 150, 105, 0.1)', link: '/properties' },
+        { icon: Cpu, label: 'Equipment', value: stats.equipment, color: '#D97706', bg: 'rgba(217, 119, 6, 0.1)', link: '/equipment' },
+        { icon: Cable, label: 'Cable Paths', value: stats.cables, color: '#7C3AED', bg: 'rgba(124, 58, 237, 0.1)', link: '/cable-paths' },
+        { icon: Radio, label: 'RF Scans', value: stats.rfscans, color: '#DC2626', bg: 'rgba(220, 38, 38, 0.1)', link: '/properties' }
     ]
 
     return (

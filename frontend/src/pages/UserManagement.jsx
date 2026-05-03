@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react'
 import api from '../api/axios'
 import { useAuth } from '../context/AuthContext'
+import { useTheme } from '../context/ThemeContext'
 import { UserCheck, UserX, Trash2, Shield, Building2, Search, Clock, Users, CheckCircle, XCircle, AlertCircle } from 'lucide-react'
 import toast from 'react-hot-toast'
 
 export default function UserManagement() {
     const { user: currentUser } = useAuth()
+    const { theme } = useTheme()
+    const isDark = theme === 'dark'
     const [users, setUsers] = useState([])
     const [orgs, setOrgs] = useState([])
     const [loading, setLoading] = useState(true)
@@ -97,11 +100,11 @@ export default function UserManagement() {
     const getRoleBadgeStyle = (roles) => {
         const role = roles?.[0]?.replace('ROLE_', '')
         const styles = {
-            ADMIN: { background: '#fee2e2', color: '#dc2626', border: '1px solid #fca5a5' },
-            ENGINEER: { background: '#dbeafe', color: '#2563eb', border: '1px solid #93c5fd' },
-            CUSTOMER: { background: '#d1fae5', color: '#059669', border: '1px solid #6ee7b7' },
+            ADMIN: isDark ? { background: 'rgba(239, 68, 68, 0.15)', color: '#f87171', border: '1px solid rgba(239, 68, 68, 0.3)' } : { background: '#fee2e2', color: '#dc2626', border: '1px solid #fca5a5' },
+            ENGINEER: isDark ? { background: 'rgba(59, 130, 246, 0.15)', color: '#60a5fa', border: '1px solid rgba(59, 130, 246, 0.3)' } : { background: '#dbeafe', color: '#2563eb', border: '1px solid #93c5fd' },
+            CUSTOMER: isDark ? { background: 'rgba(16, 185, 129, 0.15)', color: '#34d399', border: '1px solid rgba(16, 185, 129, 0.3)' } : { background: '#d1fae5', color: '#059669', border: '1px solid #6ee7b7' },
         }
-        return styles[role] || { background: '#f3f4f6', color: '#6b7280' }
+        return styles[role] || (isDark ? { background: 'rgba(107, 114, 128, 0.15)', color: '#9ca3af' } : { background: '#f3f4f6', color: '#6b7280' })
     }
 
     if (loading) return <div style={{ padding: 40, textAlign: 'center' }}>Loading users...</div>
@@ -136,7 +139,7 @@ export default function UserManagement() {
                     transition: 'all 0.2s'
                 }} onClick={() => setTab('pending')}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                        <div style={{ width: 40, height: 40, borderRadius: 10, background: '#fef3c7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ width: 40, height: 40, borderRadius: 10, background: isDark ? 'rgba(245, 158, 11, 0.15)' : '#fef3c7', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Clock size={20} color="#f59e0b" />
                         </div>
                         <div>
@@ -151,7 +154,7 @@ export default function UserManagement() {
                     transition: 'all 0.2s'
                 }} onClick={() => setTab('active')}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                        <div style={{ width: 40, height: 40, borderRadius: 10, background: '#d1fae5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ width: 40, height: 40, borderRadius: 10, background: isDark ? 'rgba(16, 185, 129, 0.15)' : '#d1fae5', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Users size={20} color="#10b981" />
                         </div>
                         <div>
@@ -166,7 +169,7 @@ export default function UserManagement() {
                     transition: 'all 0.2s'
                 }} onClick={() => setTab('inactive')}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                        <div style={{ width: 40, height: 40, borderRadius: 10, background: '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <div style={{ width: 40, height: 40, borderRadius: 10, background: isDark ? 'rgba(239, 68, 68, 0.15)' : '#fee2e2', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <UserX size={20} color="#ef4444" />
                         </div>
                         <div>
@@ -180,9 +183,9 @@ export default function UserManagement() {
             {/* PENDING APPROVAL SECTION */}
             {tab === 'pending' && (
                 <div className="glass-card" style={{ overflow: 'hidden', padding: 0 }}>
-                    <div style={{ padding: '16px 20px', background: 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)', borderBottom: '1px solid #fcd34d', display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <AlertCircle size={20} color="#92400e" />
-                        <h2 style={{ fontSize: 16, fontWeight: 700, color: '#92400e' }}>Pending Registration Requests ({pendingUsers.length})</h2>
+                    <div style={{ padding: '16px 20px', background: isDark ? 'linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%)' : 'linear-gradient(135deg, #fef3c7 0%, #fde68a 100%)', borderBottom: isDark ? '1px solid rgba(245, 158, 11, 0.2)' : '1px solid #fcd34d', display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <AlertCircle size={20} color={isDark ? '#fbbf24' : '#92400e'} />
+                        <h2 style={{ fontSize: 16, fontWeight: 700, color: isDark ? '#fbbf24' : '#92400e' }}>Pending Registration Requests ({pendingUsers.length})</h2>
                     </div>
                     {filtered(pendingUsers).length === 0 ? (
                         <div style={{ padding: 40, textAlign: 'center', color: 'var(--color-text-muted)' }}>
@@ -284,9 +287,9 @@ export default function UserManagement() {
             {/* ACTIVE USERS SECTION */}
             {tab === 'active' && (
                 <div className="glass-card" style={{ overflow: 'hidden', padding: 0 }}>
-                    <div style={{ padding: '16px 20px', background: 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)', borderBottom: '1px solid #6ee7b7', display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <Users size={20} color="#065f46" />
-                        <h2 style={{ fontSize: 16, fontWeight: 700, color: '#065f46' }}>Active Users ({activeUsers.length})</h2>
+                    <div style={{ padding: '16px 20px', background: isDark ? 'linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%)' : 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)', borderBottom: isDark ? '1px solid rgba(16, 185, 129, 0.2)' : '1px solid #6ee7b7', display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <Users size={20} color={isDark ? '#34d399' : '#065f46'} />
+                        <h2 style={{ fontSize: 16, fontWeight: 700, color: isDark ? '#34d399' : '#065f46' }}>Active Users ({activeUsers.length})</h2>
                     </div>
                     {filtered(activeUsers).length === 0 ? (
                         <div style={{ padding: 40, textAlign: 'center', color: 'var(--color-text-muted)' }}>
@@ -350,7 +353,7 @@ export default function UserManagement() {
                                             <span style={{
                                                 display: 'inline-flex', alignItems: 'center', gap: 4,
                                                 padding: '3px 10px', borderRadius: 12, fontSize: 11, fontWeight: 700,
-                                                background: '#d1fae5', color: '#059669'
+                                                background: isDark ? 'rgba(16, 185, 129, 0.15)' : '#d1fae5', color: isDark ? '#34d399' : '#059669'
                                             }}>
                                                 <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }}></span>
                                                 Active
@@ -393,9 +396,9 @@ export default function UserManagement() {
             {/* DEACTIVATED USERS SECTION */}
             {tab === 'inactive' && (
                 <div className="glass-card" style={{ overflow: 'hidden', padding: 0 }}>
-                    <div style={{ padding: '16px 20px', background: 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)', borderBottom: '1px solid #fca5a5', display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <UserX size={20} color="#991b1b" />
-                        <h2 style={{ fontSize: 16, fontWeight: 700, color: '#991b1b' }}>Deactivated Users ({inactiveUsers.length})</h2>
+                    <div style={{ padding: '16px 20px', background: isDark ? 'linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%)' : 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)', borderBottom: isDark ? '1px solid rgba(239, 68, 68, 0.2)' : '1px solid #fca5a5', display: 'flex', alignItems: 'center', gap: 10 }}>
+                        <UserX size={20} color={isDark ? '#f87171' : '#991b1b'} />
+                        <h2 style={{ fontSize: 16, fontWeight: 700, color: isDark ? '#f87171' : '#991b1b' }}>Deactivated Users ({inactiveUsers.length})</h2>
                     </div>
                     {filtered(inactiveUsers).length === 0 ? (
                         <div style={{ padding: 40, textAlign: 'center', color: 'var(--color-text-muted)' }}>

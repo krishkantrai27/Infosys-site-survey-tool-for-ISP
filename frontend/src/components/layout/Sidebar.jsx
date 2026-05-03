@@ -1,9 +1,11 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
-import { LayoutDashboard, Building2, Users, Settings, LogOut, MapPin, Network, FolderOpen, ClipboardList, Cpu, Cable, FileText } from 'lucide-react'
+import { useTheme } from '../../context/ThemeContext'
+import { LayoutDashboard, Building2, Users, Settings, LogOut, MapPin, Network, FolderOpen, ClipboardList, Cpu, Cable, FileText, Sun, Moon } from 'lucide-react'
 
 export default function Sidebar({ isOpen, onClose }) {
     const { user, logout, isAdmin } = useAuth()
+    const { theme, toggleTheme } = useTheme()
     const navigate = useNavigate()
 
     const handleLogout = async () => {
@@ -29,13 +31,32 @@ export default function Sidebar({ isOpen, onClose }) {
             <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
                 <div style={{ padding: '24px 20px', borderBottom: '1px solid var(--color-border)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                        <div className="gradient-primary" style={{ width: 40, height: 40, borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <Network size={22} color="white" />
+                        <div style={{ width: 40, height: 40, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <img src="/logo.png" alt="ProbeLink" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
                         </div>
-                        <div>
-                            <h1 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '-0.02em' }}>Site Survey</h1>
-                            <p style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>ISP Tool</p>
+                        <div style={{ flex: 1 }}>
+                            <h1 style={{ fontSize: 16, fontWeight: 700, letterSpacing: '-0.02em' }}>ProbeLink</h1>
+                            <p style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>ISP Survey Tool</p>
                         </div>
+                        <button
+                            onClick={toggleTheme}
+                            title={theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode'}
+                            style={{
+                                background: theme === 'light' ? '#F1F5F9' : '#2A2A2A',
+                                border: theme === 'light' ? 'none' : '1px solid #333333',
+                                borderRadius: 10,
+                                width: 36,
+                                height: 36,
+                                display: 'flex',
+                                alignItems: 'center',
+                                justifyContent: 'center',
+                                cursor: 'pointer',
+                                color: theme === 'light' ? '#1E293B' : '#E8E8E8',
+                                transition: 'all 0.3s ease',
+                            }}
+                        >
+                            {theme === 'light' ? <Moon size={18} /> : <Sun size={18} />}
+                        </button>
                     </div>
                 </div>
 

@@ -37,7 +37,7 @@ export default function Profile() {
             <div style={{ display: 'grid', gridTemplateColumns: '280px 1fr', gap: 24 }}>
                 {/* Profile card */}
                 <div className="glass-card" style={{ padding: 32, textAlign: 'center' }}>
-                    <div className="gradient-primary" style={{ width: 80, height: 80, borderRadius: 20, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontSize: 32, fontWeight: 700, marginBottom: 16 }}>
+                    <div style={{ width: 80, height: 80, borderRadius: 20, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-primary)', color: 'var(--color-bg)', fontSize: 32, fontWeight: 700, marginBottom: 16 }}>
                         {user?.username?.charAt(0).toUpperCase()}
                     </div>
                     <h3 style={{ fontSize: 18, fontWeight: 700 }}>@{user?.username}</h3>

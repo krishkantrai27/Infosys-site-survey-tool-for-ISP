@@ -8,23 +8,135 @@
   --color-primary-dark: #3730A3;
   --color-accent: #10B981;
   --color-accent-light: #34D399;
-  --color-bg: #F8FAFC;
+  --color-bg: #E4DCC9;
   --color-bg-dark: #0F172A;
-  --color-surface: #FFFFFF;
+  --color-surface: #F4EFE6;
   --color-surface-dark: #1E293B;
-  --color-text: #1E293B;
+  --color-text: #2C261E;
   --color-text-dark: #F1F5F9;
-  --color-text-muted: #64748B;
-  --color-border: #E2E8F0;
+  --color-text-muted: #736B5E;
+  --color-border: #D5CFC1;
   --color-border-dark: #334155;
 }
 
 .dark {
-  --color-bg: #0F172A;
-  --color-surface: #1E293B;
-  --color-text: #F1F5F9;
-  --color-text-muted: #94A3B8;
-  --color-border: #334155;
+  --color-primary: #E8E8E8;
+  --color-primary-light: #D4D4D4;
+  --color-primary-dark: #BBBBBB;
+  --color-accent: #E8E8E8;
+  --color-bg: #0D0D0D;
+  --color-surface: #181818;
+  --color-text: #E8E8E8;
+  --color-text-muted: #888888;
+  --color-border: #2A2A2A;
+}
+
+.dark body,
+.dark {
+  color-scheme: dark;
+}
+
+/* Alternate surface for headers/tabs to fix muddy contrast in light mode */
+.surface-alt {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.dark .surface-alt {
+  background: var(--color-bg);
+}
+
+.dark .input-field {
+  background: var(--color-surface);
+}
+
+/* Dark mode buttons */
+.dark .btn-primary {
+  background: #E8E8E8;
+  color: #0D0D0D;
+  font-weight: 700;
+}
+
+.dark .btn-primary:hover {
+  background: #D4D4D4;
+  opacity: 1;
+  box-shadow: 0 4px 24px rgba(255, 255, 255, 0.1);
+}
+
+.dark .btn-secondary {
+  background: #1E1E1E;
+  color: #E8E8E8;
+  border-color: #333333;
+}
+
+.dark .btn-secondary:hover {
+  background: #2A2A2A;
+}
+
+.dark .btn-danger {
+  background: #E8E8E8;
+  color: #0D0D0D;
+}
+
+/* Dark mode badges */
+.dark .badge-primary {
+  background: rgba(232, 232, 232, 0.1);
+  color: #D4D4D4;
+}
+
+.dark .badge-success {
+  background: rgba(232, 232, 232, 0.08);
+  color: #AAAAAA;
+}
+
+.dark .badge-warning {
+  background: rgba(232, 232, 232, 0.08);
+  color: #AAAAAA;
+}
+
+.dark .badge-danger {
+  background: rgba(232, 232, 232, 0.08);
+  color: #AAAAAA;
+}
+
+/* Dark mode inputs */
+.dark .input-field {
+  background: #1E1E1E;
+  border-color: #333333;
+  color: #E8E8E8;
+}
+
+.dark .input-field::placeholder {
+  color: #555555;
+}
+
+.dark .input-field:focus {
+  border-color: #888888;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.05);
+}
+
+/* Dark mode glass card */
+.dark .glass-card {
+  background: #181818;
+  border: 1px solid #2A2A2A;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.dark .glass-card:hover {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* Dark mode gradient overrides */
+.dark .gradient-primary {
+  background: #E8E8E8;
+  color: #0D0D0D;
+}
+
+.dark .gradient-accent {
+  background: #2A2A2A;
+}
+
+.dark .gradient-warm {
+  background: #2A2A2A;
 }
 
 * {
@@ -54,11 +166,6 @@ body {
 .glass-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
-}
-
-.dark .glass-card {
-  background: rgba(30, 41, 59, 0.7);
-  border: 1px solid rgba(51, 65, 85, 0.5);
 }
 
 /* Gradient backgrounds */
@@ -131,7 +238,7 @@ body {
   border-radius: 12px;
   font-size: 14px;
   font-family: 'Inter', sans-serif;
-  background: var(--color-surface);
+  background: rgba(255, 255, 255, 0.5);
   color: var(--color-text);
   transition: all 0.2s ease;
   outline: none;
@@ -183,11 +290,15 @@ body {
 }
 
 .dark .sidebar-link:hover {
-  background: #334155;
+  background: #1E1E1E;
+  color: #E8E8E8;
 }
 
 .dark .sidebar-link.active {
-  background: rgba(79, 70, 229, 0.15);
+  background: #2A2A2A;
+  color: #E8E8E8;
+  font-weight: 600;
+  border: 1px solid #333333;
 }
 
 /* Table */
@@ -219,7 +330,7 @@ body {
 }
 
 .dark .data-table tr:hover td {
-  background: #334155;
+  background: #1E1E1E;
 }
 
 /* Modal overlay */
@@ -325,6 +436,11 @@ body {
   animation: spinAnim 1s linear infinite;
 }
 
+/* Animated Globe */
+.animated-globe {
+  transition: opacity 0.6s ease;
+}
+
 /* Page transition */
 .page-enter {
   animation: slideUp 0.3s ease;
@@ -346,6 +462,14 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #94A3B8;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #2A2A2A;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #444444;
 }
 
 /* Responsive */

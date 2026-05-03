@@ -129,7 +129,7 @@ function EntityPicker({ scope, value, onChange }) {
 
             {/* "All selected" badge */}
             {buildingIsAll && (
-                <div style={{ padding: '8px 16px', background: '#EDE9FE', borderRadius: 8, fontSize: 13, fontWeight: 600, color: '#7C3AED', alignSelf: 'flex-end' }}>
+                <div style={{ padding: '8px 16px', background: 'var(--color-bg)', borderRadius: 8, fontSize: 13, fontWeight: 600, color: 'var(--color-primary)', alignSelf: 'flex-end', border: '1px solid var(--color-border)' }}>
                     ✓ Applies to all buildings in this property
                 </div>
             )}
@@ -149,7 +149,7 @@ function EntityPicker({ scope, value, onChange }) {
 
             {/* "All floors" badge */}
             {floorIsAll && !buildingIsAll && (
-                <div style={{ padding: '8px 16px', background: '#EDE9FE', borderRadius: 8, fontSize: 13, fontWeight: 600, color: '#7C3AED', alignSelf: 'flex-end' }}>
+                <div style={{ padding: '8px 16px', background: 'var(--color-bg)', borderRadius: 8, fontSize: 13, fontWeight: 600, color: 'var(--color-primary)', alignSelf: 'flex-end', border: '1px solid var(--color-border)' }}>
                     ✓ Applies to all floors in this building
                 </div>
             )}
@@ -366,7 +366,7 @@ function ResponseCard({ resp, templates, isExpanded, onToggle, canSubmit, onSubm
                         ) : (
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 8 }}>
                                 {Object.entries(answers).map(([key, val]) => (
-                                    <div key={key} style={{ padding: '8px 12px', background: '#F8FAFC', borderRadius: 8 }}>
+                                    <div key={key} style={{ padding: '8px 12px', background: 'var(--color-bg)', borderRadius: 8 }}>
                                         <span style={{ fontSize: 12, color: 'var(--color-text-muted)' }}>{getLabel(key)}</span>
                                         <p style={{ fontSize: 14, fontWeight: 500, marginTop: 2 }}>{String(val)}</p>
                                     </div>
@@ -607,12 +607,12 @@ export default function Checklists() {
             )}
 
             {/* Tab Bar */}
-            <div style={{ display: 'flex', gap: 4, padding: 4, background: '#F1F5F9', borderRadius: 14, marginBottom: 24, width: 'fit-content' }}>
+            <div style={{ display: 'flex', gap: 4, padding: 4, background: 'var(--color-surface)', borderRadius: 14, marginBottom: 24, width: 'fit-content', border: '1px solid var(--color-border)' }}>
                 {tabs.map(t => (
                     <button key={t.id} onClick={() => setTab(t.id)} style={{
                         display: 'flex', alignItems: 'center', gap: 6, padding: '10px 20px', borderRadius: 10, border: 'none',
                         cursor: 'pointer', fontSize: 14, fontWeight: 600, transition: 'all 0.2s ease',
-                        background: tab === t.id ? 'white' : 'transparent',
+                        background: tab === t.id ? 'var(--color-bg)' : 'transparent',
                         color: tab === t.id ? 'var(--color-primary)' : 'var(--color-text-muted)',
                         boxShadow: tab === t.id ? '0 2px 8px rgba(0,0,0,0.08)' : 'none',
                     }}>
@@ -664,7 +664,7 @@ export default function Checklists() {
                                         {fields.length > 0 && (
                                             <div style={{ marginTop: 12, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
                                                 {fields.slice(0, 5).map((f, i) => (
-                                                    <span key={i} style={{ fontSize: 12, padding: '4px 10px', background: '#F1F5F9', borderRadius: 8, color: 'var(--color-text-muted)' }}>
+                                                    <span key={i} style={{ fontSize: 12, padding: '4px 10px', background: 'var(--color-bg)', borderRadius: 8, color: 'var(--color-text-muted)' }}>
                                                         {f.label || 'Untitled'} ({f.type})
                                                     </span>
                                                 ))}
@@ -699,8 +699,8 @@ export default function Checklists() {
                                         onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)' }}
                                         onMouseLeave={e => { e.currentTarget.style.transform = ''; e.currentTarget.style.boxShadow = '' }}>
                                         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
-                                            <div className="gradient-primary" style={{ width: 36, height: 36, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                                                <ClipboardList size={18} color="white" />
+                                            <div style={{ width: 36, height: 36, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'var(--color-primary)' }}>
+                                                <ClipboardList size={18} color="var(--color-bg)" />
                                             </div>
                                             <div>
                                                 <h4 style={{ fontSize: 15, fontWeight: 600 }}>{tmpl.name}</h4>
@@ -812,7 +812,7 @@ export default function Checklists() {
                         </div>
 
                         {/* Cascading entity picker */}
-                        <div style={{ marginBottom: 20, padding: 16, background: '#F8FAFC', borderRadius: 12 }}>
+                        <div style={{ marginBottom: 20, padding: 16, background: 'var(--color-bg)', borderRadius: 12 }}>
                             <h4 style={{ fontSize: 13, fontWeight: 600, marginBottom: 10 }}>
                                 Select the {selectedTemplate.scope.toLowerCase()} to apply this checklist to
                             </h4>

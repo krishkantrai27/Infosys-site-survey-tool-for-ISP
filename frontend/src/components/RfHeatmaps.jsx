@@ -119,21 +119,21 @@ export default function RfHeatmaps({ floorId, propertyId, activeOverlays, onTogg
             overflow: 'hidden'
         }}>
             <div 
+                className="surface-alt"
                 style={{ 
                     padding: '12px 16px', 
                     display: 'flex', 
                     justifyContent: 'space-between', 
                     alignItems: 'center',
-                    cursor: 'pointer',
-                    background: '#F8FAFC'
+                    cursor: 'pointer'
                 }}
                 onClick={() => setExpanded(!expanded)}
             >
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                     {expanded ? <ChevronDown size={16} color="#64748B" /> : <ChevronRight size={16} color="#64748B" />}
                     <Wifi size={16} color="#3B82F6" />
-                    <span style={{ fontWeight: 600, fontSize: 13, color: '#1E293B' }}>RF Overlays</span>
-                    <span style={{ background: '#E2E8F0', padding: '2px 6px', borderRadius: 12, fontSize: 10, fontWeight: 700, color: '#475569' }}>
+                    <span style={{ fontWeight: 600, fontSize: 13, color: 'var(--color-text)' }}>RF Overlays</span>
+                    <span style={{ background: 'var(--color-border)', padding: '2px 6px', borderRadius: 12, fontSize: 10, fontWeight: 700, color: 'var(--color-text)' }}>
                         {scans.length}
                     </span>
                 </div>
@@ -152,7 +152,7 @@ export default function RfHeatmaps({ floorId, propertyId, activeOverlays, onTogg
                                     <Plus size={14} /> Upload RF Scan
                                 </button>
                             ) : (
-                                <form onSubmit={handleUpload} style={{ background: '#F1F5F9', padding: 12, borderRadius: 8 }}>
+                                <form onSubmit={handleUpload} className="surface-alt" style={{ padding: 12, borderRadius: 8 }}>
                                     <div style={{ marginBottom: 12 }}>
                                         <label style={{ display: 'block', fontSize: 11, fontWeight: 600, marginBottom: 4, color: '#475569' }}>Tool Format</label>
                                         <select 
@@ -211,7 +211,7 @@ export default function RfHeatmaps({ floorId, propertyId, activeOverlays, onTogg
                                         border: `1px solid ${isActive ? '#3B82F6' : '#E2E8F0'}`, 
                                         borderRadius: 8, 
                                         padding: 12,
-                                        background: isActive ? '#EFF6FF' : '#fff',
+                                        background: isActive ? 'var(--color-bg)' : 'transparent',
                                         transition: 'all 0.2s'
                                     }}>
                                         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 8 }}>

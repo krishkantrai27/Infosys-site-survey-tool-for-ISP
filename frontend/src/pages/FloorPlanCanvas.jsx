@@ -604,7 +604,7 @@ function FloorPlanCanvasInner() {
                     <div style="font-weight:800;font-size:12px;margin-bottom:6px;color:#1E293B;text-transform:uppercase;letter-spacing:0.05em">${eq.type}</div>
                     <div style="font-size:12px;color:#475569;margin-bottom:2px">${eq.vendor} ${eq.model || ''}</div>
                     <div style="font-size:10px;color:#94A3B8;margin-bottom:4px">${eq.serialNumber || 'No SN'}</div>
-                    <div style="font-size:10px;background:#F1F5F9;padding:2px 6px;border-radius:4px;display:inline-block;color:#64748B;font-weight:600">${space.name}</div>
+                    <div style="font-size:10px;background:var(--color-bg);padding:2px 6px;border-radius:4px;display:inline-block;color:#64748B;font-weight:600">${space.name}</div>
                     ${deleteBtnHtml}
                 </div>
             `
@@ -876,7 +876,7 @@ function FloorPlanCanvasInner() {
                     <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
                         <div style={{
                             display: 'flex', gap: 4, padding: '4px',
-                            background: '#F1F5F9', borderRadius: 12
+                            background: 'var(--color-bg)', borderRadius: 12
                         }}>
                             <button
                                 className={`btn ${activeTool === null && !drawnFeature ? 'btn-primary' : 'btn-secondary'}`}
@@ -1066,12 +1066,12 @@ function FloorPlanCanvasInner() {
 
                         {/* Legend */}
                         <div style={{
-                            background: 'rgba(255,255,255,0.92)', backdropFilter: 'blur(8px)',
+                            background: 'var(--color-surface)', backdropFilter: 'blur(8px)',
                             borderRadius: 12, padding: '12px 16px',
                             boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
                             flexShrink: 1, overflowY: 'auto', fontSize: 12, pointerEvents: 'auto'
                         }}>
-                            <div style={{ fontWeight: 700, marginBottom: 8, color: '#1E293B', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <div style={{ fontWeight: 700, marginBottom: 8, color: 'var(--color-text)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                                 <span>Spaces ({spaces.length})</span>
                                 {(highlightedSpaceId !== null || clickedSpaceIds.length > 0) && (
                                     <button 
@@ -1092,7 +1092,7 @@ function FloorPlanCanvasInner() {
                             ) : (
                                 Object.entries(groupedSpaces).map(([type, spacesInType]) => (
                                     <div key={type} style={{ marginBottom: 16 }}>
-                                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6, borderBottom: '1px solid #E2E8F0', paddingBottom: 4 }}>
+                                        <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 6, borderBottom: '1px solid var(--color-border)', paddingBottom: 4 }}>
                                             <div style={{ width: 12, height: 12, borderRadius: 3, background: getSpaceColor(type) }}></div>
                                             <span style={{ fontSize: 11, fontWeight: 700, color: '#64748B', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                                                 {type} ({spacesInType.length})
@@ -1126,7 +1126,7 @@ function FloorPlanCanvasInner() {
                                                             transition: 'opacity 0.2s',
                                                             padding: '4px 6px',
                                                             borderRadius: '6px',
-                                                            background: isHighlighted ? '#F1F5F9' : 'transparent',
+                                                            background: isHighlighted ? 'var(--color-bg)' : 'transparent',
                                                         }}
                                                     >
                                                         <div style={{
@@ -1136,7 +1136,7 @@ function FloorPlanCanvasInner() {
                                                             flexShrink: 0
                                                         }}></div>
                                                         <span style={{ 
-                                                            color: '#475569', 
+                                                            color: 'var(--color-text)', 
                                                             fontSize: 11,
                                                             fontWeight: isHighlighted ? 700 : 500,
                                                             fontStyle: hasGeometry ? 'normal' : 'italic',
