@@ -279,7 +279,7 @@ function getTargetLabel(targetType, targetId, entityName) {
 }
 
 // ─── Response Card ───
-function ResponseCard({ resp, templates, isExpanded, onToggle, canSubmit, onSubmit, isAdmin, onDelete, onDownloadReport }) {
+function ResponseCard({ resp, templates, isExpanded, onToggle, canSubmit, onSubmit, isAdmin, onDelete }) {
     const [entityName, setEntityName] = useState(null)
     let answers = {}
     try { answers = JSON.parse(resp.answersJson) } catch { }
@@ -345,10 +345,6 @@ function ResponseCard({ resp, templates, isExpanded, onToggle, canSubmit, onSubm
                     )}
                     {isAdmin && (
                         <>
-                            <button className="btn btn-secondary" style={{ padding: '4px 10px', fontSize: 12, marginLeft: 8, display: 'flex', alignItems: 'center' }}
-                                onClick={e => { e.stopPropagation(); onDownloadReport(resp.targetType, resp.targetId) }} title="Download PDF Report for this Target">
-                                <FileText size={14} style={{ marginRight: 4 }} /> PDF Report
-                            </button>
                             <button className="btn btn-danger" style={{ padding: '4px 8px', fontSize: 12, marginLeft: 8 }}
                                 onClick={e => { e.stopPropagation(); onDelete(resp.id) }} title="Delete Response">
                                 <Trash2 size={14} />
@@ -553,24 +549,6 @@ export default function Checklists() {
         } catch (e) { flash(e.response?.data?.message || 'Failed to delete response', 'error') }
     }
 
-    // ── Generate PDF Report ──
-    const handleDownloadReport = async (targetType, targetId) => {
-        try {
-            flash('Generating PDF report...', 'success')
-            const res = await api.post('/reports/generate', { targetType, targetId }, { responseType: 'blob' })
-            const url = window.URL.createObjectURL(new Blob([res.data], { type: 'application/pdf' }))
-            const link = document.createElement('a')
-            link.href = url
-            link.setAttribute('download', `SiteSurveyReport_${targetType}_${targetId}.pdf`)
-            document.body.appendChild(link)
-            link.click()
-            link.parentNode.removeChild(link)
-            flash('Report downloaded successfully!')
-        } catch (e) { 
-            flash('Failed to generate PDF report', 'error') 
-        }
-    }
-
     // ── Tabs ──
     // Admin: Templates + All Submissions (NO fill)
     // Engineer: Fill Checklist + My Responses
@@ -750,7 +728,6 @@ export default function Checklists() {
                                     onSubmit={handleSubmitExisting}
                                     isAdmin={admin}
                                     onDelete={handleDeleteResponse}
-                                    onDownloadReport={handleDownloadReport}
                                 />
                             ))}
                         </div>

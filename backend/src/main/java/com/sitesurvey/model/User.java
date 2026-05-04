@@ -54,6 +54,9 @@ public class User {
     @Size(max = 50)
     private String phone;
 
+    @Column(name = "profile_picture")
+    private String profilePicture;
+
     @Builder.Default
     private String authProvider = "LOCAL";
 

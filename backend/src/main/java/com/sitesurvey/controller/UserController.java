@@ -9,9 +9,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.http.MediaType;
 
+import java.io.IOException;
 
 @RestController
 @RequestMapping("/api/users")
@@ -38,4 +41,24 @@ public class UserController {
         return ResponseEntity
                 .ok(ApiResponse.ok("Profile updated", userService.updateProfile(userDetails.getId(), request)));
     }
-}
+
+    @Operation(summary = "Upload profile picture")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successful operation")
+    @PostMapping(value = "/me/avatar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<ApiResponse<UserResponse>> updateProfilePicture(
+            Authentication authentication,
+            @RequestParam("file") MultipartFile file) throws IOException {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        return ResponseEntity.ok(ApiResponse.ok("Profile picture updated", 
+                userService.updateProfilePicture(userDetails.getId(), file)));
+    }
+
+    @Operation(summary = "Remove profile picture")
+    @io.swagger.v3.oas.annotations.responses.ApiResponse(responseCode = "200", description = "Successful operation")
+    @DeleteMapping("/me/avatar")
+    public ResponseEntity<ApiResponse<UserResponse>> removeProfilePicture(Authentication authentication) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        return ResponseEntity.ok(ApiResponse.ok("Profile picture removed", 
+                userService.removeProfilePicture(userDetails.getId())));
+    }
+}

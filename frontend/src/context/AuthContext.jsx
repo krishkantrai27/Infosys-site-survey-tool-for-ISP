@@ -21,7 +21,7 @@ export function AuthProvider({ children }) {
         const data = res.data.data
         localStorage.setItem('accessToken', data.accessToken)
         localStorage.setItem('refreshToken', data.refreshToken)
-        const userData = { id: data.id, username: data.username, email: data.email, roles: data.roles }
+        const userData = { id: data.id, username: data.username, email: data.email, roles: data.roles, profilePicture: data.profilePicture || null }
         localStorage.setItem('user', JSON.stringify(userData))
         setUser(userData)
         return userData
@@ -41,8 +41,14 @@ export function AuthProvider({ children }) {
     const isAdmin = () => user?.roles?.includes('ROLE_ADMIN')
     const isEngineer = () => user?.roles?.includes('ROLE_ENGINEER')
 
+    const updateUser = (newData) => {
+        const updated = { ...user, ...newData }
+        setUser(updated)
+        localStorage.setItem('user', JSON.stringify(updated))
+    }
+
     return (
-        <AuthContext.Provider value={{ user, loading, login, register, logout, isAdmin, isEngineer }}>
+        <AuthContext.Provider value={{ user, loading, login, register, logout, isAdmin, isEngineer, updateUser }}>
             {children}
         </AuthContext.Provider>
     )

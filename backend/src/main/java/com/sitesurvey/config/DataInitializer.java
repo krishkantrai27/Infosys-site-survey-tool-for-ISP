@@ -27,9 +27,18 @@ public class DataInitializer implements CommandLineRunner {
         private final UserRepository userRepository;
         private final MembershipRepository membershipRepository;
         private final PasswordEncoder passwordEncoder;
+        private final org.springframework.jdbc.core.JdbcTemplate jdbcTemplate;
 
         @Override
         public void run(String... args) {
+                // Fix legacy schema if password column exists and prevents insert
+                try {
+                        jdbcTemplate.execute("ALTER TABLE users DROP COLUMN password");
+                        log.info("Dropped legacy password column to fix schema conflict");
+                } catch (Exception e) {
+                        // Ignore, column might not exist
+                }
+
                 // Seed roles
                 for (ERole eRole : ERole.values()) {
                         if (roleRepository.findByName(eRole).isEmpty()) {

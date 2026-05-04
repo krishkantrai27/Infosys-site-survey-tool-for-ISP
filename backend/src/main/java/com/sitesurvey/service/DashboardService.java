@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.sitesurvey.security.UserDetailsImpl;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -26,11 +28,33 @@ public class DashboardService {
     private final ChecklistResponseRepository checklistResponseRepository;
     private final ChecklistTemplateRepository checklistTemplateRepository;
 
+    private List<Property> getPropertiesForUser(UserDetailsImpl userDetails) {
+        boolean isAdmin = userDetails.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        boolean isEngineer = userDetails.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ENGINEER"));
+
+        if (isAdmin) {
+            return propertyRepository.findAll();
+        }
+
+        Long userOrgId = userDetails.getOrganizationId();
+        if (userOrgId == null) {
+            return new ArrayList<>();
+        }
+
+        if (isEngineer) {
+            return propertyRepository.findForEngineer(userOrgId, userDetails.getId());
+        }
+
+        return propertyRepository.findByOrganizationId(userOrgId);
+    }
+
     /**
      * Survey completion: % of spaces with at least one submitted checklist response, per property
      */
-    public List<DashboardDTO.SurveyCompletion> getSurveyCompletion() {
-        List<Property> properties = propertyRepository.findAll();
+    public List<DashboardDTO.SurveyCompletion> getSurveyCompletion(UserDetailsImpl userDetails) {
+        List<Property> properties = getPropertiesForUser(userDetails);
         List<DashboardDTO.SurveyCompletion> result = new ArrayList<>();
 
         // Get all space IDs that have been surveyed (SUBMITTED status)
@@ -59,7 +83,7 @@ public class DashboardService {
     /**
      * Checklist status: count of open (DRAFT) vs submitted responses, grouped by template
      */
-    public List<DashboardDTO.ChecklistStatus> getChecklistStatus() {
+    public List<DashboardDTO.ChecklistStatus> getChecklistStatus(UserDetailsImpl userDetails) {
         List<ChecklistTemplate> templates = checklistTemplateRepository.findAll();
         List<DashboardDTO.ChecklistStatus> result = new ArrayList<>();
 
@@ -84,11 +108,13 @@ public class DashboardService {
     /**
      * Equipment count per building with space breakdown
      */
-    public List<DashboardDTO.EquipmentCount> getEquipmentCount() {
-        List<Building> buildings = buildingRepository.findAll();
+    public List<DashboardDTO.EquipmentCount> getEquipmentCount(UserDetailsImpl userDetails) {
+        List<Property> properties = getPropertiesForUser(userDetails);
         List<DashboardDTO.EquipmentCount> result = new ArrayList<>();
 
-        for (Building building : buildings) {
+        for (Property p : properties) {
+            List<Building> buildings = buildingRepository.findByPropertyId(p.getId());
+            for (Building building : buildings) {
             long count = equipmentRepository.countByBuildingId(building.getId());
             List<Floor> floors = floorRepository.findByBuildingId(building.getId());
             List<DashboardDTO.SpaceEquipment> spaceEquipments = new ArrayList<>();
@@ -116,14 +142,15 @@ public class DashboardService {
                         .build());
             }
         }
+        }
         return result;
     }
 
     /**
      * RF scan coverage: floors with vs without RF scans per property
      */
-    public List<DashboardDTO.RfScanCoverage> getRfScanCoverage() {
-        List<Property> properties = propertyRepository.findAll();
+    public List<DashboardDTO.RfScanCoverage> getRfScanCoverage(UserDetailsImpl userDetails) {
+        List<Property> properties = getPropertiesForUser(userDetails);
         List<DashboardDTO.RfScanCoverage> result = new ArrayList<>();
 
         for (Property property : properties) {
@@ -146,8 +173,8 @@ public class DashboardService {
     /**
      * Properties overview: summary card per property with counts
      */
-    public List<DashboardDTO.PropertyOverview> getPropertiesOverview() {
-        List<Property> properties = propertyRepository.findAll();
+    public List<DashboardDTO.PropertyOverview> getPropertiesOverview(UserDetailsImpl userDetails) {
+        List<Property> properties = getPropertiesForUser(userDetails);
         List<Long> surveyedSpaceIds = checklistResponseRepository
                 .findDistinctTargetIdsByTargetTypeAndStatus("space", SubmissionStatus.SUBMITTED);
 

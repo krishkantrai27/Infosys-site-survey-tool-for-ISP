@@ -12,6 +12,8 @@ import com.sitesurvey.repository.OrganizationRepository;
 import com.sitesurvey.repository.RoleRepository;
 import com.sitesurvey.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.IOException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -31,6 +33,7 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final OrganizationRepository organizationRepository;
     private final PasswordEncoder passwordEncoder;
+    private final FileStorageService fileStorageService;
 
     public UserResponse getProfile(Long userId) {
         User user = userRepository.findById(userId)
@@ -47,6 +50,27 @@ public class UserService {
             user.setPhone(request.getPhone());
         if (request.getEmail() != null)
             user.setEmail(request.getEmail());
+        return toResponse(userRepository.save(user));
+    }
+
+    @Transactional
+    public UserResponse updateProfilePicture(Long userId, MultipartFile file) throws IOException {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+        
+        com.sitesurvey.model.FloorPlan storedFile = fileStorageService.uploadFile(file, "user_avatar", userId, userId);
+        String downloadUrl = "/api/files/floor-plan/" + storedFile.getId() + "/download";
+        user.setProfilePicture(downloadUrl);
+        
+        return toResponse(userRepository.save(user));
+    }
+
+    @Transactional
+    public UserResponse removeProfilePicture(Long userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "id", userId));
+        
+        user.setProfilePicture(null);
         return toResponse(userRepository.save(user));
     }
 
@@ -168,6 +192,7 @@ public class UserService {
                 .lastName(user.getLastName())
                 .fullName(user.getFullName())
                 .phone(user.getPhone())
+                .profilePicture(user.getProfilePicture())
                 .isActive(user.getIsActive())
                 .organizationId(user.getOrganization() != null ? user.getOrganization().getId() : null)
                 .organizationName(user.getOrganization() != null ? user.getOrganization().getName() : null)

@@ -71,8 +71,16 @@ export default function Sidebar({ isOpen, onClose }) {
 
                 <div style={{ padding: '16px 12px', borderTop: '1px solid var(--color-border)' }}>
                     <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '8px 12px', marginBottom: 8 }}>
-                        <div className="gradient-accent" style={{ width: 36, height: 36, borderRadius: 10, display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 700, fontSize: 14 }}>
-                            {user?.username?.charAt(0).toUpperCase()}
+                        <div className="gradient-accent" style={{ 
+                            width: 36, height: 36, borderRadius: 10, display: 'flex', 
+                            alignItems: 'center', justifyContent: 'center', color: 'white', 
+                            fontWeight: 700, fontSize: 14, overflow: 'hidden'
+                        }}>
+                            {user?.profilePicture ? (
+                                <img src={`http://localhost:8080${user.profilePicture}`} alt="Avatar" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                            ) : (
+                                user?.username?.charAt(0).toUpperCase()
+                            )}
                         </div>
                         <div style={{ flex: 1, minWidth: 0 }}>
                             <p style={{ fontSize: 13, fontWeight: 600, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{user?.username}</p>

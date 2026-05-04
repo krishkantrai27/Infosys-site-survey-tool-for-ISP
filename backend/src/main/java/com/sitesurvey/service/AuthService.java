@@ -52,6 +52,10 @@ public class AuthService {
 
         RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
+        // Fetch the user entity to get profilePicture
+        User user = userRepository.findById(userDetails.getId()).orElse(null);
+        String profilePicture = user != null ? user.getProfilePicture() : null;
+
         return JwtResponse.builder()
                 .accessToken(jwt)
                 .refreshToken(refreshToken.getToken())
@@ -61,6 +65,7 @@ public class AuthService {
                 .username(userDetails.getUsername())
                 .email(userDetails.getEmail())
                 .roles(roles)
+                .profilePicture(profilePicture)
                 .build();
     }
 

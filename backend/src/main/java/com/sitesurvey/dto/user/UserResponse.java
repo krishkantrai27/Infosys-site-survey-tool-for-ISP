@@ -17,6 +17,7 @@ public class UserResponse {
     private String lastName;
     private String fullName;
     private String phone;
+    private String profilePicture;
     private Boolean isActive;
     private Long organizationId;
     private String organizationName;
