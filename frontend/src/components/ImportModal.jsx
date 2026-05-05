@@ -64,7 +64,7 @@ const ImportModal = ({ type, parentId, onClose, onSuccess }) => {
         <div className="modal-overlay" onClick={handleCancel}>
             <div className="modal-content" onClick={e => e.stopPropagation()} style={{ maxWidth: 800, maxHeight: '85vh', display: 'flex', flexDirection: 'column' }}>
                 {/* Header */}
-                <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--color-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: '#F8FAFC', borderRadius: '16px 16px 0 0' }}>
+                <div className="import-bg-slate" style={{ padding: '20px 24px', borderBottom: '1px solid var(--color-border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderRadius: '16px 16px 0 0' }}>
                     <div>
                         <h2 style={{ fontSize: 18, fontWeight: 700, display: 'flex', alignItems: 'center', gap: 8 }}>
                             <FileSpreadsheet size={20} color="var(--color-primary)" />
@@ -82,7 +82,7 @@ const ImportModal = ({ type, parentId, onClose, onSuccess }) => {
                 {/* Content */}
                 <div style={{ flex: 1, overflow: 'auto', padding: 24 }}>
                     {step === 1 ? (
-                        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '48px 24px', border: '2px dashed var(--color-border)', borderRadius: 12, background: '#F8FAFC', position: 'relative' }}>
+                        <div className="import-bg-slate" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '48px 24px', border: '2px dashed var(--color-border)', borderRadius: 12, position: 'relative' }}>
                             {!file && (
                                 <input
                                     type="file"
@@ -91,7 +91,7 @@ const ImportModal = ({ type, parentId, onClose, onSuccess }) => {
                                     style={{ position: 'absolute', inset: 0, opacity: 0, cursor: 'pointer', zIndex: 5 }}
                                 />
                             )}
-                            <div style={{ padding: 16, background: '#EEF2FF', borderRadius: '50%', marginBottom: 16 }}>
+                            <div className="import-bg-indigo" style={{ padding: 16, borderRadius: '50%', marginBottom: 16 }}>
                                 <Upload size={32} color="var(--color-primary)" />
                             </div>
                             <h3 style={{ fontSize: 16, fontWeight: 600 }}>
@@ -124,21 +124,21 @@ const ImportModal = ({ type, parentId, onClose, onSuccess }) => {
                         <div>
                             {/* Summary Stats */}
                             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 12, marginBottom: 20 }}>
-                                <div style={{ padding: 16, background: '#F0FDF4', borderRadius: 12, border: '1px solid #BBF7D0', display: 'flex', alignItems: 'center', gap: 12 }}>
+                                <div className="import-bg-green" style={{ padding: 16, borderRadius: 12, border: '1px solid', display: 'flex', alignItems: 'center', gap: 12 }}>
                                     <CheckCircle size={24} color="#16A34A" />
                                     <div>
                                         <p style={{ fontSize: 11, fontWeight: 700, color: '#16A34A', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Valid</p>
                                         <p style={{ fontSize: 22, fontWeight: 700, color: '#14532D' }}>{previewData.validCount}</p>
                                     </div>
                                 </div>
-                                <div style={{ padding: 16, background: '#FEF2F2', borderRadius: 12, border: '1px solid #FECACA', display: 'flex', alignItems: 'center', gap: 12 }}>
+                                <div className="import-bg-red" style={{ padding: 16, borderRadius: 12, border: '1px solid', display: 'flex', alignItems: 'center', gap: 12 }}>
                                     <AlertTriangle size={24} color="#DC2626" />
                                     <div>
                                         <p style={{ fontSize: 11, fontWeight: 700, color: '#DC2626', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Errors</p>
                                         <p style={{ fontSize: 22, fontWeight: 700, color: '#7F1D1D' }}>{previewData.errorCount}</p>
                                     </div>
                                 </div>
-                                <div style={{ padding: 16, background: '#F8FAFC', borderRadius: 12, border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: 12 }}>
+                                <div className="import-bg-slate" style={{ padding: 16, borderRadius: 12, border: '1px solid var(--color-border)', display: 'flex', alignItems: 'center', gap: 12 }}>
                                     <FileSpreadsheet size={24} color="var(--color-primary)" />
                                     <div>
                                         <p style={{ fontSize: 11, fontWeight: 700, color: 'var(--color-primary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Total</p>
@@ -157,7 +157,7 @@ const ImportModal = ({ type, parentId, onClose, onSuccess }) => {
                                     <div style={{ border: '1px solid var(--color-border)', borderRadius: 8, overflow: 'auto' }}>
                                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
                                             <thead>
-                                                <tr style={{ background: '#F8FAFC' }}>
+                                                <tr className="import-table-header">
                                                     <th style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase', borderBottom: '1px solid var(--color-border)' }}>Row</th>
                                                     {Object.keys(previewData.valid[0]).filter(k => k !== 'rowNumber').map(key => (
                                                         <th key={key} style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: 'var(--color-text-muted)', textTransform: 'uppercase', borderBottom: '1px solid var(--color-border)' }}>{key}</th>
@@ -186,10 +186,10 @@ const ImportModal = ({ type, parentId, onClose, onSuccess }) => {
                                         <AlertTriangle size={14} />
                                         Validation Errors
                                     </h4>
-                                    <div style={{ border: '1px solid #FECACA', borderRadius: 8, overflow: 'auto', background: '#FEF2F2' }}>
+                                    <div className="import-bg-red" style={{ border: '1px solid', borderRadius: 8, overflow: 'auto' }}>
                                         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
                                             <thead>
-                                                <tr style={{ background: '#FEE2E2' }}>
+                                                <tr className="import-table-header-error">
                                                     <th style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: '#991B1B', textTransform: 'uppercase' }}>Row</th>
                                                     <th style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: '#991B1B', textTransform: 'uppercase' }}>Field</th>
                                                     <th style={{ padding: '8px 12px', textAlign: 'left', fontSize: 11, fontWeight: 600, color: '#991B1B', textTransform: 'uppercase' }}>Description</th>
@@ -213,7 +213,7 @@ const ImportModal = ({ type, parentId, onClose, onSuccess }) => {
                 </div>
 
                 {/* Footer */}
-                <div style={{ padding: '16px 24px', borderTop: '1px solid var(--color-border)', display: 'flex', justifyContent: 'flex-end', gap: 12, background: '#F8FAFC', borderRadius: '0 0 16px 16px' }}>
+                <div className="import-bg-slate" style={{ padding: '16px 24px', borderTop: '1px solid var(--color-border)', display: 'flex', justifyContent: 'flex-end', gap: 12, borderRadius: '0 0 16px 16px' }}>
                     <button className="btn btn-secondary" onClick={handleCancel}>Cancel</button>
                     {step === 2 && (
                         <button

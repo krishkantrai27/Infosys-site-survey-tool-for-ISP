@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
+import { Sun, Moon } from 'lucide-react'
 import toast from 'react-hot-toast'
 import api from '../api/axios'
 import AnimatedGlobe from '../components/AnimatedGlobe'
@@ -12,7 +13,7 @@ export default function Register() {
     const [orgs, setOrgs] = useState([])
     const [loading, setLoading] = useState(false)
     const { register } = useAuth()
-    const { theme } = useTheme()
+    const { theme, toggleTheme } = useTheme()
     const navigate = useNavigate()
     const isDark = theme === 'dark'
 
@@ -74,6 +75,28 @@ export default function Register() {
                             background: isDark ? '#141414' : 'rgba(255,255,255,0.85)',
                             backdropFilter: 'blur(12px)',
                         }}>
+                            <button 
+                                type="button" 
+                                onClick={toggleTheme}
+                                style={{
+                                    position: 'absolute',
+                                    top: 24,
+                                    right: 24,
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    color: isDark ? '#E8E8E8' : '#1E293B',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    padding: 8,
+                                    borderRadius: '50%',
+                                    backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'
+                                }}
+                                aria-label="Toggle theme"
+                            >
+                                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                            </button>
                             <div style={{ marginBottom: 24 }}>
                                 <h2 style={{ fontSize: 26, fontWeight: 700, marginBottom: 6, letterSpacing: '-0.02em', color: isDark ? '#E8E8E8' : '#1E293B' }}>Create Account</h2>
                                 <p style={{ color: isDark ? '#888' : 'var(--color-text-muted)', fontSize: 14 }}>Join the ProbeLink platform</p>

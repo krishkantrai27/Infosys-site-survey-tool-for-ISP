@@ -372,7 +372,7 @@ function ResponseCard({ resp, templates, isExpanded, onToggle, canSubmit, onSubm
                         <div style={{ display: 'flex', gap: 16, marginTop: 10, fontSize: 12, color: 'var(--color-text-muted)' }}>
                             <span>Created: {new Date(resp.createdAt).toLocaleString()}</span>
                             {resp.submittedAt && <span>Submitted: {new Date(resp.submittedAt).toLocaleString()}</span>}
-                            <span>By user #{resp.submittedBy}</span>
+                            <span>By {resp.submitterName || `user #${resp.submittedBy}`} ({resp.submitterOrganization || 'No Organization'})</span>
                         </div>
                     </div>
                 </div>

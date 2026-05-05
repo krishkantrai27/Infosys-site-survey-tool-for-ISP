@@ -17,6 +17,8 @@ public class ChecklistResponseResponse {
     private String answersJson;
     private String photosManifest;
     private Long submittedBy;
+    private String submitterName;
+    private String submitterOrganization;
     private LocalDateTime submittedAt;
     private String status;
     private LocalDateTime createdAt;

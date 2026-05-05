@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useNavigate, Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import { useTheme } from '../context/ThemeContext'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Sun, Moon } from 'lucide-react'
 import toast from 'react-hot-toast'
 import AnimatedGlobe from '../components/AnimatedGlobe'
 import CircuitBorder from '../components/CircuitBorder'
@@ -13,7 +13,7 @@ export default function Login() {
     const [showPassword, setShowPassword] = useState(false)
     const [loading, setLoading] = useState(false)
     const { login } = useAuth()
-    const { theme } = useTheme()
+    const { theme, toggleTheme } = useTheme()
     const navigate = useNavigate()
     const isDark = theme === 'dark'
 
@@ -69,6 +69,28 @@ export default function Login() {
                             background: isDark ? '#141414' : 'rgba(255,255,255,0.85)',
                             backdropFilter: 'blur(12px)',
                         }}>
+                            <button 
+                                type="button" 
+                                onClick={toggleTheme}
+                                style={{
+                                    position: 'absolute',
+                                    top: 24,
+                                    right: 24,
+                                    background: 'none',
+                                    border: 'none',
+                                    cursor: 'pointer',
+                                    color: isDark ? '#E8E8E8' : '#1E293B',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                    padding: 8,
+                                    borderRadius: '50%',
+                                    backgroundColor: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'
+                                }}
+                                aria-label="Toggle theme"
+                            >
+                                {isDark ? <Sun size={20} /> : <Moon size={20} />}
+                            </button>
                             <h2 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8, letterSpacing: '-0.02em', color: isDark ? '#E8E8E8' : '#1E293B' }}>Welcome back</h2>
                             <p style={{ color: isDark ? '#888' : 'var(--color-text-muted)', marginBottom: 32 }}>Sign in to your account to continue</p>
 

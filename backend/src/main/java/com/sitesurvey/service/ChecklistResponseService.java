@@ -10,6 +10,7 @@ import com.sitesurvey.model.ChecklistResponse;
 import com.sitesurvey.model.SubmissionStatus;
 import com.sitesurvey.repository.ChecklistResponseRepository;
 import com.sitesurvey.repository.ChecklistTemplateRepository;
+import com.sitesurvey.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -24,6 +25,7 @@ public class ChecklistResponseService {
 
     private final ChecklistResponseRepository responseRepository;
     private final ChecklistTemplateRepository templateRepository;
+    private final UserRepository userRepository;
     private final ObjectMapper objectMapper;
 
     public ChecklistResponseResponse saveOrSubmit(ChecklistResponseRequest request, Long userId, boolean submit) {
@@ -51,6 +53,7 @@ public class ChecklistResponseService {
 
     public List<ChecklistResponseResponse> getAll() {
         return responseRepository.findAllByOrderByCreatedAtDesc().stream()
+                .filter(r -> SubmissionStatus.SUBMITTED.equals(r.getStatus()))
                 .map(this::toResponse)
                 .collect(Collectors.toList());
     }
@@ -125,6 +128,21 @@ public class ChecklistResponseService {
     }
 
     private ChecklistResponseResponse toResponse(ChecklistResponse r) {
+        String submitterName = "Unknown User";
+        String orgName = "No Organization";
+        
+        if (r.getSubmittedBy() != null) {
+            java.util.Optional<com.sitesurvey.model.User> optUser = userRepository.findById(r.getSubmittedBy());
+            if (optUser.isPresent()) {
+                com.sitesurvey.model.User u = optUser.get();
+                String fullName = u.getFullName();
+                submitterName = (fullName != null && !fullName.trim().isEmpty()) ? fullName : u.getUsername();
+                if (u.getOrganization() != null) {
+                    orgName = u.getOrganization().getName();
+                }
+            }
+        }
+        
         return ChecklistResponseResponse.builder()
                 .id(r.getId())
                 .templateId(r.getTemplateId())
@@ -133,6 +151,8 @@ public class ChecklistResponseService {
                 .answersJson(r.getAnswersJson())
                 .photosManifest(r.getPhotosManifest())
                 .submittedBy(r.getSubmittedBy())
+                .submitterName(submitterName)
+                .submitterOrganization(orgName)
                 .submittedAt(r.getSubmittedAt())
                 .status(r.getStatus() != null ? r.getStatus().name() : null)
                 .createdAt(r.getCreatedAt())
