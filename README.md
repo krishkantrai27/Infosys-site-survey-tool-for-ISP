@@ -26,7 +26,6 @@ Traditional ISP site surveys suffer from fragmented tooling, paper-based checkli
 3. **Field Data Collection** — Log equipment, cable paths, and checklist responses from the field.
 4. **Role-Based Access** — Admin, Engineer, and Customer roles with appropriate permissions.
 5. **PDF Report Generation** — One-click reports covering floor plans, equipment inventory, checklists, and RF scan coverage.
-6. **Immersive UI & Theming** — High-performance interactive background animations, theme-aware components, and full light/dark mode support.
 
 ---
 
@@ -99,7 +98,7 @@ graph TD
 
 | Feature | Description | Screenshot |
 |:---|:---|:---|
-| **Login** | Secure sign-in with JWT session management. Features an immersive 8-directional animated globe background and circuit-style glowing borders. Supports light/dark mode. | ![Login](screenshots/Login_Page.jpg) |
+| **Login** | Secure sign-in with JWT session management. Supports light/dark mode. | ![Login](screenshots/Login_Page.jpg) |
 | **Registration** | New accounts default to Customer role. Admin can reassign role post-registration. Engineers and Admins gain elevated access. | ![Registration](screenshots/Registration_Page.jpg) |
 
 ---
@@ -126,8 +125,6 @@ Central workspace snapshot for admins and engineers.
 | **Checklist Distribution** | Submitted vs. draft count per template |
 | **RF Scan Coverage** | % floors scanned per property |
 | **Properties Overview** | Table: buildings, floors, spaces, equipment, cables, checklists, progress per property |
-
-*The dashboard features a continuous data-flow circuit animation background for an enhanced modern aesthetic.*
 
 ![Dashboard](screenshots/DashBoard.jpg)
 
@@ -182,7 +179,7 @@ Admin-defined survey templates filled by engineers per space.
 |:---|:---|:---|
 | **Templates** | Create and manage versioned checklist templates. Each template scoped to an org and space type. | ![Templates](screenshots/CheckList_1.jpg) |
 | **Edit Template** | Add schema fields with types: Text, Number, Yes/No, Dropdown. Mark fields as required. Updates create a new version. | ![Edit Template](screenshots/CheckList_2.jpg) |
-| **All Submissions** | View engineer-submitted responses per template and space. Submitted checklists display the engineer's name and organization. Drafts remain hidden from admins until finalized. | ![Submissions](screenshots/CheckList_3.jpg) |
+| **All Submissions** | View engineer-submitted responses per template and space. Shows answers, submitter, and timestamps. | ![Submissions](screenshots/CheckList_3.jpg) |
 
 ---
 
@@ -213,7 +210,7 @@ Admin controls for all platform users.
 
 ### 👤 Profile
 
-Users can update their profile details and securely upload a custom avatar photo using the dynamic avatar modal.
+Users can update their profile details and change profile photo.
 
 ![Profile](screenshots/Profile_2.jpg)
 
@@ -223,20 +220,19 @@ Users can update their profile details and securely upload a custom avatar photo
 
 | Layer | Technology |
 |:---|:---|
-| **Frontend** | React 18 (Vite), Tailwind CSS |
-| **Backend** | Spring Boot 3.4+ (Java 21), Spring Security, JWT |
-| **Database** | MySQL 8.0 |
-| **Storage** | Abstracted FileStorage (Local / MinIO S3) |
-| **Migration** | Flyway DB |
-| **Maps / Canvas** | Custom SVG Canvas + Heatmap Overlay |
-| **DevOps** | Docker, Docker Compose, Nginx |
+| **Frontend** | React.js, Tailwind CSS |
+| **Backend** | Spring Boot (Java 17), Spring Security, JWT |
+| **Database** | MySQL 8 (Docker) |
+| **Migration** | Flyway — auto-migrates on startup |
+| **Maps / Canvas** | Custom SVG canvas with RF heatmap overlay |
+| **Auth** | JWT access + refresh tokens |
 
 ### System Architecture
 
 ```
-infosys-site-survey/
+probelink/
 ├── backend/
-│   └── src/main/java/com/sitesurvey/
+│   └── src/main/java/com/probelink/
 │       ├── controller/     # REST API endpoints
 │       ├── service/        # Business logic
 │       ├── entity/         # JPA entities
@@ -256,8 +252,8 @@ infosys-site-survey/
 
 | Tool | Version |
 |:---|:---|
-| Java | 21+ |
-| Node.js | 20+ |
+| Java | 17+ |
+| Node.js | 18+ |
 | Docker | Latest |
 | Docker Compose | v2+ |
 
@@ -267,8 +263,8 @@ MySQL is handled by Docker — no local install needed.
 
 **1. Clone**
 ```bash
-git clone https://github.com/krishkantrai27/Infosys-site-survey-tool-for-ISP.git
-cd Infosys-site-survey-tool-for-ISP
+git clone https://github.com/krishkantrai27/probelink.git
+cd probelink
 ```
 
 **2. Backend**
