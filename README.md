@@ -259,29 +259,6 @@ probelink/
 
 MySQL is handled by Docker — no local install needed.
 
-### Installation
-
-**1. Clone**
-```bash
-git clone https://github.com/krishkantrai27/probelink.git
-cd probelink
-```
-
-**2. Backend**
-```bash
-# Configure application.properties with DB and JWT settings
-cd backend
-./mvnw spring-boot:run
-```
-
-**3. Frontend**
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-Open `http://localhost:5173` — API runs at `http://localhost:8080`.
 
 ### Quick Start by Role
 
