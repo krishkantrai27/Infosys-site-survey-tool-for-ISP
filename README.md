@@ -261,7 +261,6 @@ MySQL is handled by Docker — no local install needed.
 
 ---
 
-
 ### Quick Start by Role
 
 #### For Admins
