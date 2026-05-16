@@ -281,7 +281,17 @@ public class ReportService {
                 Path imagePath = Paths.get(plan.getFilePath());
                 if (Files.exists(imagePath)) {
                     byte[] imageBytes = Files.readAllBytes(imagePath);
-                    Image img = Image.getInstance(imageBytes);
+                    Image img = null;
+                    try {
+                        img = Image.getInstance(imageBytes);
+                    } catch (Exception ex) {
+                        java.awt.image.BufferedImage bimg = javax.imageio.ImageIO.read(new java.io.ByteArrayInputStream(imageBytes));
+                        if (bimg != null) {
+                            img = Image.getInstance(bimg, null);
+                        } else {
+                            throw ex;
+                        }
+                    }
                     img.scaleToFit(doc.getPageSize().getWidth() - 80, 400);
                     img.setAlignment(Element.ALIGN_CENTER);
                     doc.add(img);
@@ -483,7 +493,17 @@ public class ReportService {
                     Path imagePath = Paths.get(scan.getHeatmapFile().getFilePath());
                     if (Files.exists(imagePath)) {
                         byte[] imageBytes = Files.readAllBytes(imagePath);
-                        Image img = Image.getInstance(imageBytes);
+                        Image img = null;
+                        try {
+                            img = Image.getInstance(imageBytes);
+                        } catch (Exception ex) {
+                            java.awt.image.BufferedImage bimg = javax.imageio.ImageIO.read(new java.io.ByteArrayInputStream(imageBytes));
+                            if (bimg != null) {
+                                img = Image.getInstance(bimg, null);
+                            } else {
+                                throw ex;
+                            }
+                        }
                         img.scaleToFit(doc.getPageSize().getWidth() - 80, 350);
                         img.setAlignment(Element.ALIGN_CENTER);
                         doc.add(img);
